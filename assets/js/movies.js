@@ -4,7 +4,9 @@
 //  https://northern-magenta-cashew.glitch.me/movies
 
 /* TODO
+    fix key ignoring
     clean up database
+
     On page load:
 Display a "loading..." message
 Make an AJAX request to get a listing of all the movies
