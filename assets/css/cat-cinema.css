@@ -5,3 +5,7 @@ html {
 *, *:before, *:after {
     box-sizing: inherit;
 }
+body {
+    background-image: url("/assets/img/Cat-theatre-option 3.png");
+    background-size: auto;
+}

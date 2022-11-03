@@ -5,9 +5,9 @@
 
 /* TODO
     fix key ignoring
-    clean up database
+    clean up database*/
 
-    On page load:
+/*   On page load:
 Display a "loading..." message
 Make an AJAX request to get a listing of all the movies
 When the initial AJAX request comes back, remove the "loading..." message and replace it with HTML generated from the json response your code receives
