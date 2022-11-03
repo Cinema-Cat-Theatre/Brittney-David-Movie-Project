@@ -12,15 +12,18 @@ Display a "loading..." message
 Make an AJAX request to get a listing of all the movies
 When the initial AJAX request comes back, remove the "loading..." message and replace it with HTML generated from the json response your code receives
 ---> an html element who's display attribute changes from block to none upon api success.  Then show all movies as cards in a carousel? https://getbootstrap.com/docs/5.2/components/carousel/ having global var that = currently displayed movie and have buttons under carousel that do what is requested below
+
 Allow users to add new movies
 Create a form for adding a new movie that has fields for the movie's title and rating
 When the form is submitted, the page should not reload / refresh, instead, your javascript should make a POST request to /movies with the information the user put into the form
 ---> Simple post
+
 Allow users to edit existing movies
 Give users the option to edit an existing movie
 A form should be pre-populated with the selected movie's details
 Like creating a movie, this should not involve any page reloads, instead your javascript code should make an ajax request when the form is submitted.
 ---> if movie is showing in carousel, then "edit" button will populate and submit button puts data
+
 Delete movies
 Each movie should have a "delete" button
 When this button is clicked, your javascript should send a DELETE request - have a "are you sure?" modal: https://getbootstrap.com/docs/5.2/components/modal/#how-it-works

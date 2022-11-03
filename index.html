@@ -20,62 +20,77 @@
     <link rel="stylesheet" href="assets/css/cat-cinema.css">
 </head>
 <body>
-<header><div class="d-flex justify-content-center" >The Cat Cinema</div></header>
-<hr>
-<div class="card d-flex container justify-content-center" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal2">
-    Adding a Movie
-</button>
-<main><div class="container">
-    <div id="addMovieForm2">
-        <div class="modal" id ="addMovieModal2" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Rating</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1">
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+<header>
+    <div class="h1 d-flex justify-content-center">The Cat Cinema</div>
+</header>
+<main>
+    <div class="container">
+        <div class="container.fluid row m-3 text-center justify-content-center">
+            <div class="row">
+                <!-- Previous button -->
+                <div class="col-1">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                </div>
+            <!-- left card -->
+            <div id="next-movie" class="card col-3">
+                <img class="card-img-top" src="./assets/img/Badlands.png.webp">
+            </div>
+            <!-- middle card -->
+            <div id="featured" class="card col-4">
+                <div class="row">
+                    <div id="current-movie">
+                        <img class="card-img-top" src="./assets/img/Hawaii_Volcanoes.webp">
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
-    Editing a Movie
-</button>
-<main><div class="container">
-    <div id="loader-animation"></div>
-    <div id="carousel"></div>
-    <div id="addMovieForm">
-        <div class="modal" id ="addMovieModal" tabindex="-1">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
+                                            data-bs-target="#editMovieModal">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
+                                            data-bs-target="#addMovieModal">
+                                        Add
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal"
+                                            data-bs-target="#deleteMovieModal">
+                                        Delete
+                                    </button>
+                                </div>
+
+
+                            </div>
+
+            </div>
+            <!-- right card -->
+            <div id="previous-movie" class="card col-3">
+                <img class="card-img-top" src="./assets/img/Yosemite.webp">
+            </div>
+                <!-- next button -->
+                <div class="col-1">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+            </div>
+         </div>
+        <!--        <div class="card d-flex container justify-content-center" style="width: 18rem;">-->
+        <!--            <img src="..." class="card-img-top" alt="...">-->
+        <!--            <div class="card-body">-->
+        <!--                <h5 class="card-title">Card title</h5>-->
+        <!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+        <!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="modal" id="editMovieModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -83,10 +98,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="addMovieForm2">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Rating</label>
@@ -106,53 +122,97 @@
                 </div>
             </div>
         </div>
-    </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal3">
-        Deleting a Movie
-    </button>
-    <main><div class="container">
-        <div id="addMovieForm3">
-            <div class="modal" id ="addMovieModal3" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+        <div class="container">
+            <div id="loader-animation"></div>
+            <div id="carousel"></div>
+            <div id="addMovieForm">
+                <div class="modal" id="addMovieModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                               aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Rating</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div id="addMovieForm3">
+                    <div class="modal" id="deleteMovieModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Rating</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">New Movie
+                                                Title</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Rating</label>
+                                            <input type="text" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me
+                                                out</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
                                 </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <div id="editMovieForm">edit movie modal</div>
-    <div id="reviewArea">review movie modal</div>
-    <div id="food-kiosk">review movie modal</div>
-</div></main>
+    </div>
+</main>
 <footer></footer>
-
 <!-- jquerry js -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
