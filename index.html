@@ -21,11 +21,11 @@
 </head>
 <body>
 <header>
-<!--    <div class="h1 d-flex justify-content-center">The Cat Cinema</div>-->
+    <!--    <div class="h1 d-flex justify-content-center">The Cat Cinema</div>-->
     <div class="row">
         <div class="text d-flex justify-content-center">The Cat Cinema</div>
     </div>
-<!--    <div class="text d-flex justify-content-start">The Cat Cinema</div>-->
+    <!--    <div class="text d-flex justify-content-start">The Cat Cinema</div>-->
 </header>
 <main>
     <div class="container">
@@ -33,95 +33,147 @@
             <div class="row">
                 <!-- Previous button -->
                 <div class="col-1">
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon caro-button" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                        <span id="left-button" class="carousel-control-prev-icon caro-button" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
                 </div>
-            <!-- left card -->
-            <div id="next-movie" class="card col-3 card-size">
-                <img id="next-movie-poster" class="card-img-top" src="./assets/img/Badlands.png.webp" alt="movie poster">
-            </div>
-            <!-- middle card -->
-            <div id="featured" class="card col-4 card-size-middle">
-                <div class="row">
-                    <div id="current-movie">
-                        <img  id="current-movie-poster" class="card-img-top" src="./assets/img/Hawaii_Volcanoes.webp" alt="movie poster">
+                <!-- left card -->
+                <div id="card1-movie" class="card col-3 card-size">
+                    <img id="card1-movie-poster" class="card-img-top" src="./assets/img/Badlands.png.webp"
+                         alt="movie poster">
+                    <div class="card-title">
+                        <div id="card1-title"></div>
                     </div>
                 </div>
-                            <div class="card-body d-flex justify-content-center">
-                                <div class=" flex-row">
-                                    <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
-                                            data-bs-target="#editMovieModal">
-                                        Edit
-                                    </button>
-                                    <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
-                                            data-bs-target="#addMovieModal">
-                                        Add
-                                    </button>
-                                    <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
-                                            data-bs-target="#deleteMovieModal">
-                                        Delete
-                                    </button>
-                                </div>
-
-
-                            </div>
-
-            </div>
-            <!-- right card -->
-            <div  id="previous-movie" class="card col-3 card-size">
-                <img id="previous-movie-poster" class="card-img-top" src="./assets/img/Yosemite.webp" alt="movie poster">
-            </div>
+                <!-- middle card -->
+                <div id="featured" class="card col-4 card-size-middle">
+                    <div class="row">
+                        <div id="current-movie">
+                            <img id="current-movie-poster" class="card-img-top" src="./assets/img/Hawaii_Volcanoes.webp"
+                                 alt="movie poster">
+                        </div>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="card-title">
+                            <div id="featured-title"></div>
+                        </div>
+                        <div class="card-text">
+                            <div id="featured-director"></div>
+                            <div id="featured-genre"></div>
+                            <div id="featured-rating"></div>
+                            <div id="movie-count"></div>
+                        </div>
+                        <div class=" flex-row">
+                            <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
+                                    data-bs-target="#edit-movie-modal">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
+                                    data-bs-target="#add-movie-modal">
+                                Add
+                            </button>
+                            <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
+                                    data-bs-target="#delete-movie-modal">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- right card -->
+                <div id="card3-movie" class="card col-3 card-size">
+                    <img id="card3-movie-poster" class="card-img-top" src="./assets/img/Yosemite.webp"
+                         alt="movie poster">
+                    <div class="card-title">
+                        <div id="card3-title"></div>
+                    </div>
+                </div>
                 <!-- next button -->
                 <div class="col-1">
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon caro-button" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                        <span id="right-button" class="carousel-control-next-icon caro-button" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
-         </div>
-
-        <div class="modal" id="editMovieModal" tabindex="-1">
+        </div>
+        <!-- edit movie modal -->
+        <div class="modal" id="edit-movie-modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Edit this movie</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addMovieForm2">
+                        <form id="edit-movie-form">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                <label for="edit-title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="edit-title"
                                        aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Rating</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1">
+                                <label for="edit-genre" class="form-label">Genre</label>
+                                <input type="text" class="form-control" id="edit-genre"
+                                       aria-describedby="emailHelp">
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <div class="mb-3">
+                                <label for="edit-rating" class="form-label">Rating</label>
+                                <input type="text" class="form-control" id="edit-rating">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="mb-3">
+                                <label for="edit-director" class="form-label">Director</label>
+                                <input type="text" class="form-control" id="edit-director"
+                                       aria-describedby="emailHelp">
+                            </div>
+                            <button id="submit-edit" type="submit" class="btn btn-primary">Edit Movie</button>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
-
-
+        <!-- add movie modal -->
         <div class="container">
-            <div id="loader-animation"></div>
-            <div id="carousel"></div>
-            <div id="addMovieForm">
-                <div class="modal" id="addMovieModal" tabindex="-1">
+            <div class="modal" id="add-movie-modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="add-movie-form">
+                                <div class="mb-3">
+                                    <label for="add-title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="add-title"
+                                           aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="add-genre" class="form-label">Genre</label>
+                                    <input type="text" class="form-control" id="add-genre"
+                                           aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="add-rating" class="form-label">Rating</label>
+                                    <input type="text" class="form-control" id="add-rating">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="add-director" class="form-label">Director</label>
+                                    <input type="text" class="form-control" id="add-director"
+                                           aria-describedby="emailHelp">
+                                </div>
+                                <button id="submit-add" type="submit" class="btn btn-primary">Add Movie</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- delete movie modal -->
+            <div class="container">
+                <div class="modal" id="delete-movie-modal" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -130,75 +182,20 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">New Movie Title</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                               aria-describedby="emailHelp">
+                                <form id="delete-movie-form">
+                                    <div id="delete-warning">
+                                        <p>Are you sure that you want to permanently delete this
+                                        movie?</p>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Rating</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1">
-                                    </div>
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button id="submit-delete" type="submit" class="btn btn-primary">Delete</button>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div id="addMovieForm3">
-                    <div class="modal" id="deleteMovieModal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">New Movie
-                                                Title</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                                   aria-describedby="emailHelp">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Rating</label>
-                                            <input type="text" class="form-control" id="exampleInputPassword1">
-                                        </div>
-                                        <div class="mb-3 form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Check me
-                                                out</label>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 <footer></footer>
