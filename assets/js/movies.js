@@ -8,11 +8,7 @@ styling:
 opacity ot panels
 middle panel less transparrent
 make panel 1 and 3 disappear in less than medium size
-make arrows more visible
-title styling more visible / cool
 three buttons side-by-side instead of stacked
-column sizes
-card 1 and 3 shorter or smaller too
 revisit bg image
 load page
 
@@ -119,8 +115,6 @@ let movieDB;
             });
     }
 
-
-
     function editMovie(id, bodyStr) {//  PUT is basically the same as replace, and PATCH is the same as append
         const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
         const options = {
@@ -147,21 +141,26 @@ let movieDB;
             });
     };
 
-    function getPoster() {
-        //https://www.themoviedb.org/authenticate/${TMDB_KEY}/search/movie
+    function getPoster(title, whichCard) {
         //https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false
-        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false`;
+         title = encodeURIComponent(title);
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='${title}'&language=en-US&page=1&include_adult=false`;
+        console.log(url);
         const options = {
             method: 'GET',
         };
         fetch(url, options)
             .then((result) => result.json())
             .then((result) => {
-                $('#poster').css('background-image', `url("https://image.tmdb.org/t/p/original${result.results[0].poster_path}")`);
-//                console.log(result[0].poster_path);
+                console.log(whichCard);
+                switch (whichCard) {
+                    case 1: $('#next-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
+                    case 2: $('#current-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); console.log(`https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);break;
+                    case 3: $('#previous-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
+                }
                 console.log(result.results[0].poster_path);
             })
-            .catch(/* handle errors */);
+            .catch(() => (console.log("Something went wrong loading the poster")));
     }
 
     // editMovie(288);
@@ -172,7 +171,8 @@ let movieDB;
     //addMovie(newMovie);
     //let idNum = 289;
     //deleteMovie(idNum);
-    //let editId = 288;
-    //let revisedMovie = {title: 'Apocalypse Now', genre: 'Vietnam War', rating: 'R', director: 'Francis Ford Coppola'};
-    //editMovie(editId, revisedMovie);
+    // let editId = 287;
+    // let revisedMovie = {title: 'Reservoir Dogs', genre: 'Crime', rating: 'R', director: 'Quentin Tarantino'};
+    // editMovie(editId, revisedMovie);
+    //getPoster("apocalypse Now", 2);
 }());

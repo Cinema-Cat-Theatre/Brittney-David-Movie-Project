@@ -34,6 +34,11 @@ body {
     1px 25px 35px rgba(16,16,16,0.2),
     1px 30px 60px rgba(16,16,16,0.4);
 }
+
+img {
+
+}
+
 .card-size {          /*adds offset appearance to cards on left and right*/
     height: 400px;
     opacity: 95%;
@@ -49,7 +54,6 @@ body {
     margin-top: 90px;
     border-radius: 15%;
     border: solid black;
-
 }
 
 .caro-button {

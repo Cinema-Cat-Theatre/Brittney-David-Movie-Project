@@ -22,11 +22,14 @@
 <body>
 <header>
 <!--    <div class="h1 d-flex justify-content-center">The Cat Cinema</div>-->
-    <div class="text d-flex justify-content-start">The Cat Cinema</div>
+    <div class="row">
+        <div class="text d-flex justify-content-center">The Cat Cinema</div>
+    </div>
+<!--    <div class="text d-flex justify-content-start">The Cat Cinema</div>-->
 </header>
 <main>
     <div class="container">
-        <div class="container.fluid row m-3 text-center justify-content-center">
+        <div class="container.fluid row m-3 text-center justify-content-center align-content-start">
             <div class="row">
                 <!-- Previous button -->
                 <div class="col-1">
@@ -37,13 +40,13 @@
                 </div>
             <!-- left card -->
             <div id="next-movie" class="card col-3 card-size">
-                <img class="card-img-top" src="./assets/img/Badlands.png.webp">
+                <img id="next-movie-poster" class="card-img-top" src="./assets/img/Badlands.png.webp" alt="movie poster">
             </div>
             <!-- middle card -->
             <div id="featured" class="card col-4 card-size-middle">
                 <div class="row">
                     <div id="current-movie">
-                        <img class="card-img-top" src="./assets/img/Hawaii_Volcanoes.webp">
+                        <img  id="current-movie-poster" class="card-img-top" src="./assets/img/Hawaii_Volcanoes.webp" alt="movie poster">
                     </div>
                 </div>
                             <div class="card-body d-flex justify-content-center">
@@ -67,8 +70,8 @@
 
             </div>
             <!-- right card -->
-            <div id="previous-movie" class="card col-3 card-size">
-                <img class="card-img-top" src="./assets/img/Yosemite.webp">
+            <div  id="previous-movie" class="card col-3 card-size">
+                <img id="previous-movie-poster" class="card-img-top" src="./assets/img/Yosemite.webp" alt="movie poster">
             </div>
                 <!-- next button -->
                 <div class="col-1">
@@ -208,6 +211,7 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 <!-- local script -->
+<Script src="./assets/js/keys.js"></Script>
 <script src="./assets/js/movies.js"></script>
 </body>
 </html>
