@@ -121,19 +121,27 @@ let movieDB;
 
 
 
-    function editMovie(id) {//  PUT is basically the same as replace, and PATCH is the same as append
-        //  https://northern-magenta-cashew.glitch.me/movies
-        const bod = {plot: 'An Army Captain is sent to assassinate a Colonel in his own army.'};
+    function editMovie(id, bodyStr) {//  PUT is basically the same as replace, and PATCH is the same as append
         const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
         const options = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(bod),
+            body: JSON.stringify(bodyStr),
         };
         fetch(url, options)
-            .then('The new movie was added.')
+            .then(() => {
+                console.log('The new movie was added.');
+                let editIdx;
+                for (let i = 0; i < movieDB.length; i ++) {
+                    if (movieDB[i].id === id) {
+                        editIdx = i;
+                    }
+                }
+                movieDB.splice(editIdx, 1, bodyStr);
+                console.log(movieDB);
+            })
             .catch(() => {
                 console.log("There was an error editing the movie");
             });
@@ -160,8 +168,11 @@ let movieDB;
 //    console.log(authenticate());
     //getPoster();
     getEntireDB();
-    let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
-    addMovie(newMovie);
-    let idNum = 289;
-    deleteMovie(idNum);
+    //let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
+    //addMovie(newMovie);
+    //let idNum = 289;
+    //deleteMovie(idNum);
+    //let editId = 288;
+    //let revisedMovie = {title: 'Apocalypse Now', genre: 'Vietnam War', rating: 'R', director: 'Francis Ford Coppola'};
+    //editMovie(editId, revisedMovie);
 }());
