@@ -69,7 +69,6 @@ let currentMovieIndexNum = 30;
                 movieDB = data;  // assign entire json file to an array
                 console.log(movieDB);
                 populateCards();
-
             })
             .catch(() => console.log("There was an error loading the database"));
     }
@@ -89,17 +88,16 @@ let currentMovieIndexNum = 30;
     }
 
     function checkMovieIndex(num) {
-        console.log(num, movieDB.length);
         let newIdx = num;
         if (num < 0) {
             newIdx = movieDB.length-1;
         }
-        if (num > movieDB.length)  {
+        if (num >= movieDB.length)  {
             newIdx = 0;
         }
-        console.log("new is :", newIdx)
         return newIdx;
     }
+
     function prepAdd() {
 
     }
@@ -138,7 +136,7 @@ let currentMovieIndexNum = 30;
         };
         fetch(url, options)
             .then(() => {
-                console.log('The new movie was added.');
+                console.log('The new movie was edited.');
                 let editIdx;
                 for (let i = 0; i < movieDB.length; i ++) {
                     if (movieDB[i].id === id) {
@@ -167,7 +165,7 @@ let currentMovieIndexNum = 30;
         };
         fetch(url, options)
             .then(() => {
-                console.log('The new movie was added.');
+                console.log('The new movie was deleted.');
                 let delIdx;
                 for (let i = 0; i < movieDB.length; i ++) {
                     if (movieDB[i].id === id) {
@@ -217,7 +215,8 @@ let currentMovieIndexNum = 30;
     // editMovie(288);
 //    console.log(authenticate());
     //getPoster();
-    getEntireDB()
+    getEntireDB();
+
     //let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
     //addMovie(newMovie);
     //let idNum = 289;
@@ -231,4 +230,5 @@ let currentMovieIndexNum = 30;
     $('#submit-delete').on('click', prepDelete);
     $('#left-button').on('click', backOne);
     $('#right-button').on('click',  fwdOne);
+
 }());
