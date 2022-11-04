@@ -8,11 +8,7 @@ styling:
 opacity ot panels
 middle panel less transparrent
 make panel 1 and 3 disappear in less than medium size
-make arrows more visible
-title styling more visible / cool
 three buttons side-by-side instead of stacked
-column sizes
-card 1 and 3 shorter or smaller too
 revisit bg image
 load page
 
@@ -63,6 +59,7 @@ Use a free movie API like OMDB to include extra info or render movie posters.
 The id property of every movie should not be edited by hand. The purpose of this property is to uniquely identify that particular movie. That is, if we want to delete or modify an existing movie, we can specify what movie we want to change by referencing it's id. When a new movie is created (i.e. when you send a POST request to /movies with a title and a rating), the server will respond with the movie object that was created, including a generated id.     --->  have an array that is updated after each action
   */
 let movieDB;
+let currentMovieIndexNum = 30;
 
     function getEntireDB() {
         const url = 'https://northern-magenta-cashew.glitch.me/movies';
@@ -71,8 +68,40 @@ let movieDB;
             .then((data) => {
                 movieDB = data;  // assign entire json file to an array
                 console.log(movieDB);
+                populateCards();
+
             })
             .catch(() => console.log("There was an error loading the database"));
+    }
+
+    function populateCards() {
+        //card 1
+
+        $('#card1-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title)}`);
+        //card 2
+        $('#featured-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`);
+        $('#featured-director').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].director)}`);
+        $('#featured-genre').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].genre)}`);
+        $('#featured-rating').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].rating)}`);
+        $('#movie-count').text(`${currentMovieIndexNum+1} of ${movieDB.length}`);
+        //card 3
+        $('#card3-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title)}`);
+    }
+
+    function checkMovieIndex(num) {
+        console.log(num, movieDB.length);
+        let newIdx = num;
+        if (num < 0) {
+            newIdx = movieDB.length-1;
+        }
+        if (num > movieDB.length)  {
+            newIdx = 0;
+        }
+        console.log("new is :", newIdx)
+        return newIdx;
+    }
+    function prepAdd() {
+
     }
 
     function addMovie(bodyStr) {
@@ -94,32 +123,9 @@ let movieDB;
             .catch(() => console.log("There was an error adding a new movie"));
     }
 
-    function deleteMovie(id) {
-        const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
-        const options = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-        fetch(url, options)
-            .then(() => {
-                console.log('The new movie was added.');
-                let delIdx;
-                for (let i = 0; i < movieDB.length; i ++) {
-                    if (movieDB[i].id === id) {
-                        delIdx = i;
-                    }
-                }
-                movieDB.splice(delIdx, 0);
-                console.log(movieDB);
-            })
-            .catch(() => {
-                console.log("There was an error deleting the movie");
-            });
+    function prepEdit() {
+
     }
-
-
 
     function editMovie(id, bodyStr) {//  PUT is basically the same as replace, and PATCH is the same as append
         const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
@@ -147,32 +153,82 @@ let movieDB;
             });
     };
 
-    function getPoster() {
-        //https://www.themoviedb.org/authenticate/${TMDB_KEY}/search/movie
+    function prepDelete() {
+
+    }
+
+    function deleteMovie(id) {
+        const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        fetch(url, options)
+            .then(() => {
+                console.log('The new movie was added.');
+                let delIdx;
+                for (let i = 0; i < movieDB.length; i ++) {
+                    if (movieDB[i].id === id) {
+                        delIdx = i;
+                    }
+                }
+                movieDB.splice(delIdx, 0);
+                console.log(movieDB);
+            })
+            .catch(() => {
+                console.log("There was an error deleting the movie");
+            });
+    }
+
+    function getPoster(title, whichCard) {
         //https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false
-        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false`;
+         title = encodeURIComponent(title);
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='${title}'&language=en-US&page=1&include_adult=false`;
+        console.log(url);
         const options = {
             method: 'GET',
         };
         fetch(url, options)
             .then((result) => result.json())
             .then((result) => {
-                $('#poster').css('background-image', `url("https://image.tmdb.org/t/p/original${result.results[0].poster_path}")`);
-//                console.log(result[0].poster_path);
+                console.log(whichCard);
+                switch (whichCard) {
+                    case 1: $('#card1-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
+                    case 2: $('#current-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); console.log(`https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);break;
+                    case 3: $('#card3-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
+                }
                 console.log(result.results[0].poster_path);
             })
-            .catch(/* handle errors */);
+            .catch(() => (console.log("Something went wrong loading the poster")));
+    }
+
+    function fwdOne() {
+            currentMovieIndexNum++;
+            populateCards();
+    }
+
+    function backOne() {
+        currentMovieIndexNum--;
+        populateCards()
     }
 
     // editMovie(288);
 //    console.log(authenticate());
     //getPoster();
-    getEntireDB();
+    getEntireDB()
     //let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
     //addMovie(newMovie);
     //let idNum = 289;
     //deleteMovie(idNum);
-    //let editId = 288;
-    //let revisedMovie = {title: 'Apocalypse Now', genre: 'Vietnam War', rating: 'R', director: 'Francis Ford Coppola'};
-    //editMovie(editId, revisedMovie);
+    // let editId = 287;
+    // let revisedMovie = {title: 'Reservoir Dogs', genre: 'Crime', rating: 'R', director: 'Quentin Tarantino'};
+    // editMovie(editId, revisedMovie);
+    //getPoster("apocalypse Now", 2);
+    $('#submit-edit').on('click', prepEdit);
+    $('#submit-add').on('click', prepAdd);
+    $('#submit-delete').on('click', prepDelete);
+    $('#left-button').on('click', backOne);
+    $('#right-button').on('click',  fwdOne);
 }());
