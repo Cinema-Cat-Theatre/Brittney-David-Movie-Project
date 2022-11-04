@@ -62,4 +62,106 @@ Use a free movie API like OMDB to include extra info or render movie posters.
 
 The id property of every movie should not be edited by hand. The purpose of this property is to uniquely identify that particular movie. That is, if we want to delete or modify an existing movie, we can specify what movie we want to change by referencing it's id. When a new movie is created (i.e. when you send a POST request to /movies with a title and a rating), the server will respond with the movie object that was created, including a generated id.     --->  have an array that is updated after each action
   */
+let movieDB;
+
+    function getEntireDB() {
+        const url = 'https://northern-magenta-cashew.glitch.me/movies';
+        return fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                movieDB = data;  // assign entire json file to an array
+                console.log(movieDB);
+            })
+            .catch(() => console.log("There was an error loading the database"));
+    }
+
+    function addMovie(bodyStr) {
+        const newMovieInfo = bodyStr;
+        const url = 'https://northern-magenta-cashew.glitch.me/movies';
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newMovieInfo),
+        };
+        fetch(url, options)
+            .then(() => {
+                console.log('The new movie was added.');
+                movieDB.push(bodyStr);
+                console.log(movieDB);
+            })
+            .catch(() => console.log("There was an error adding a new movie"));
+    }
+
+    function deleteMovie(id) {
+        const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        fetch(url, options)
+            .then(() => {
+                console.log('The new movie was added.');
+                let delIdx;
+                for (let i = 0; i < movieDB.length; i ++) {
+                    if (movieDB[i].id === id) {
+                        delIdx = i;
+                    }
+                }
+                movieDB.splice(delIdx, 0);
+                console.log(movieDB);
+            })
+            .catch(() => {
+                console.log("There was an error deleting the movie");
+            });
+    }
+
+
+
+    function editMovie(id) {//  PUT is basically the same as replace, and PATCH is the same as append
+        //  https://northern-magenta-cashew.glitch.me/movies
+        const bod = {plot: 'An Army Captain is sent to assassinate a Colonel in his own army.'};
+        const url = `https://northern-magenta-cashew.glitch.me/movies/${id}`;
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bod),
+        };
+        fetch(url, options)
+            .then('The new movie was added.')
+            .catch(() => {
+                console.log("There was an error editing the movie");
+            });
+    };
+
+    function getPoster() {
+        //https://www.themoviedb.org/authenticate/${TMDB_KEY}/search/movie
+        //https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false`;
+        const options = {
+            method: 'GET',
+        };
+        fetch(url, options)
+            .then((result) => result.json())
+            .then((result) => {
+                $('#poster').css('background-image', `url("https://image.tmdb.org/t/p/original${result.results[0].poster_path}")`);
+//                console.log(result[0].poster_path);
+                console.log(result.results[0].poster_path);
+            })
+            .catch(/* handle errors */);
+    }
+
+    // editMovie(288);
+//    console.log(authenticate());
+    //getPoster();
+    getEntireDB();
+    let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
+    addMovie(newMovie);
+    let idNum = 289;
+    deleteMovie(idNum);
 }());
