@@ -59,7 +59,7 @@ Use a free movie API like OMDB to include extra info or render movie posters.
 The id property of every movie should not be edited by hand. The purpose of this property is to uniquely identify that particular movie. That is, if we want to delete or modify an existing movie, we can specify what movie we want to change by referencing it's id. When a new movie is created (i.e. when you send a POST request to /movies with a title and a rating), the server will respond with the movie object that was created, including a generated id.     --->  have an array that is updated after each action
   */
 let movieDB;
-let currentMovieIndexNum = 30;
+let currentMovieIndexNum = 0;
 
     function getEntireDB() {
         const url = 'https://northern-magenta-cashew.glitch.me/movies';
@@ -75,26 +75,30 @@ let currentMovieIndexNum = 30;
 
     function populateCards() {
         //card 1
-
         $('#card1-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title)}`);
+        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title)}`, 1);
         //card 2
         $('#featured-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`);
         $('#featured-director').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].director)}`);
         $('#featured-genre').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].genre)}`);
         $('#featured-rating').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].rating)}`);
         $('#movie-count').text(`${currentMovieIndexNum+1} of ${movieDB.length}`);
+        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`, 2);
         //card 3
         $('#card3-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title)}`);
+        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title)}`, 3);
     }
 
     function checkMovieIndex(num) {
+        console.log('len - ', movieDB.length);
         let newIdx = num;
         if (num < 0) {
             newIdx = movieDB.length-1;
         }
-        if (num >= movieDB.length)  {
+        if (num == movieDB.length)  {
             newIdx = 0;
         }
+        console.log(num, newIdx);
         return newIdx;
     }
 
