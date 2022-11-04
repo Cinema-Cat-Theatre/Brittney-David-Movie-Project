@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- local stylesheet-->
     <link rel="stylesheet" href="assets/css/cat-cinema.css">
+    <!--external stylesheet aka GOOGLE FONTS  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -40,11 +44,11 @@
                     </button>
                 </div>
                 <!-- left card -->
-                <div id="card1-movie" class="card col-3 card-size">
+                <div id="card1-movie" class="card card-size col-3 d-none d-md-block">
                     <img id="card1-movie-poster" class="card-img-top" src="./assets/img/Badlands.png.webp"
                          alt="movie poster">
                     <div class="card-title">
-                        <div id="card1-title"></div>
+                        <div id="card1-title" class="text-size"></div>
                     </div>
                 </div>
                 <!-- middle card -->
@@ -57,15 +61,15 @@
                     </div>
                     <div class="card-body mt-1">
                         <div class="card-title">
-                            <div id="featured-title"></div>
+                            <div id="featured-title" class="text-size"></div>
                         </div>
-                        <div class="card-text">
+                        <div class="card-text row d-flex justify-content-center">
                             <div id="featured-director" class="text-size"></div>
-                            <div id="featured-genre"></div>
-                            <div id="featured-rating"></div>
-                            <div id="movie-count"></div>
+                            <div id="featured-genre" class="text-size"></div>
+                            <div id="featured-rating" class="text-size"></div>
+                            <div id="movie-count" class="text-size"></div>
                         </div>
-                        <div class="container row justify-content-center">
+                        <div class="container">
                             <button type="button" class="btn btn-dark btn-lg m-1" data-bs-toggle="modal"
                                     data-bs-target="#edit-movie-modal">
                                 Edit
@@ -82,10 +86,10 @@
                     </div>
                 </div>
                 <!-- right card -->
-                <div id="card3-movie" class="card col-3 card-size">
+                <div id="card3-movie" class="card col-3 d-none d-md-block card-size ">
                     <img id="card3-movie-poster" class="card-img-top" src="./assets/img/Yosemite.webp"
                          alt="movie poster">
-                    <div class="card-title">
+                    <div class="card-title text-size">
                         <div id="card3-title"></div>
                     </div>
                 </div>
