@@ -28,7 +28,7 @@
 
     Show a loading animation instead of just text that says "loading...".
 
-    Allow users to sort the movies by rating, title, or genre (if you have it).  kinda like coffee project?
+    Done but need buttons for this:  Allow users to sort the movies by rating, title, or genre (if you have it).  kinda like coffee project?
 
     Allow users to search through the movies by rating, title, or genre (if you have it). kinda like coffee project?
 
@@ -251,7 +251,34 @@
         populateCards();  // update screen
     }
 
-    //  light the fuse by getting the db from glitch
+    function sortByRating(objArray) {
+             objArray.sort(function(a, b) {
+                let textA = a.rating;
+                let textB = b.rating;
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+             populateCards();
+    }
+
+    function sortByTitle(objArray) {
+            objArray.sort(function(a, b) {
+                var textA = a.title.toUpperCase();
+                var textB = b.title.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+        populateCards();
+    }
+
+    function sortByGenre(objArray) {
+           objArray.sort(function(a, b) {
+                var textA = a.genre.toUpperCase();
+                var textB = b.genre.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+        populateCards();
+    }
+
+     //  light the fuse by getting the db from glitch
     getEntireDB();
 
     // wire up the buttons
