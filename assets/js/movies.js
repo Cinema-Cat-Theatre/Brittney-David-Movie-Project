@@ -46,8 +46,6 @@ load page
 
 Show a loading animation instead of just text that says "loading...".
 
-Use modals for the creating and editing movie forms.
-
 Add a genre property to every movie.  look up genres in api
 
 Allow users to sort the movies by rating, title, or genre (if you have it).  kinda like coffee project?
@@ -60,6 +58,7 @@ The id property of every movie should not be edited by hand. The purpose of this
   */
 let movieDB;
 let currentMovieIndexNum = 0;
+let genreList;
 
     function getEntireDB() {
         const url = 'https://northern-magenta-cashew.glitch.me/movies';
@@ -67,8 +66,7 @@ let currentMovieIndexNum = 0;
             .then((response) => response.json())
             .then((data) => {
                 movieDB = data;  // assign entire json file to an array
-                console.log(movieDB);
-                populateCards();
+                getGenreList();
             })
             .catch(() => console.log("There was an error loading the database"));
     }
@@ -80,7 +78,6 @@ let currentMovieIndexNum = 0;
         //card 2
         $('#featured-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`);
         $('#featured-director').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].director)}`);
-        $('#featured-genre').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].genre)}`);
         $('#featured-rating').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].rating)}`);
         $('#movie-count').text(`${currentMovieIndexNum+1} of ${movieDB.length}`);
         getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`, 2);
@@ -90,20 +87,27 @@ let currentMovieIndexNum = 0;
     }
 
     function checkMovieIndex(num) {
-        console.log('len - ', movieDB.length);
-        let newIdx = num;
+        let newIdx = num
         if (num < 0) {
             newIdx = movieDB.length-1;
         }
-        if (num == movieDB.length)  {
+        if (num >= movieDB.length)  {
             newIdx = 0;
         }
-        console.log(num, newIdx);
         return newIdx;
     }
 
-    function prepAdd() {
-
+    function prepAdd(e) {
+        e.preventDefault();
+        let idNum = movieDB[currentMovieIndexNum].id;
+        //figure out the id number of the editing movie, build the body from the form, then call the transaction
+        //let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
+        //addMovie(newMovie);
+        let addTitle = document.querySelector('#add-title').value;
+        let addRating = document.querySelector('#add-rating').value;
+        let addDirector = document.querySelector('#add-director').value;
+        let addString = {title: `${addTitle}`, rating: `${addRating}`, director: `${addDirector}`};
+        addMovie(addString);
     }
 
     function addMovie(bodyStr) {
@@ -118,15 +122,15 @@ let currentMovieIndexNum = 0;
         };
         fetch(url, options)
             .then(() => {
-                console.log('The new movie was added.');
                 movieDB.push(bodyStr);
-                console.log(movieDB);
             })
             .catch(() => console.log("There was an error adding a new movie"));
     }
 
-    function prepEdit() {
-
+    function prepEdit(e) {
+        e.preventDefault();
+        //populate form
+        //figure out the id number of the editing movie, build the body from the form, then call the transaction
     }
 
     function editMovie(id, bodyStr) {//  PUT is basically the same as replace, and PATCH is the same as append
@@ -140,7 +144,6 @@ let currentMovieIndexNum = 0;
         };
         fetch(url, options)
             .then(() => {
-                console.log('The new movie was edited.');
                 let editIdx;
                 for (let i = 0; i < movieDB.length; i ++) {
                     if (movieDB[i].id === id) {
@@ -148,15 +151,15 @@ let currentMovieIndexNum = 0;
                     }
                 }
                 movieDB.splice(editIdx, 1, bodyStr);
-                console.log(movieDB);
             })
             .catch(() => {
                 console.log("There was an error editing the movie");
             });
-    };
+    }
 
-    function prepDelete() {
-
+    function prepDelete(e) {
+        e.preventDefault();
+        //figure out the id number of the deleting movie then call the transaction
     }
 
     function deleteMovie(id) {
@@ -177,7 +180,6 @@ let currentMovieIndexNum = 0;
                     }
                 }
                 movieDB.splice(delIdx, 0);
-                console.log(movieDB);
             })
             .catch(() => {
                 console.log("There was an error deleting the movie");
@@ -185,34 +187,89 @@ let currentMovieIndexNum = 0;
     }
 
     function getPoster(title, whichCard) {
-        //https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='Apocalypse%20Now'&language=en-US&page=1&include_adult=false
          title = encodeURIComponent(title);
-        const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='${title}'&language=en-US&page=1&include_adult=false`;
-        console.log(url);
+       const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='${title}'&language=en-US&page=1&include_adult=false`;
         const options = {
             method: 'GET',
         };
         fetch(url, options)
             .then((result) => result.json())
             .then((result) => {
-                console.log(whichCard);
                 switch (whichCard) {
-                    case 1: $('#card1-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
-                    case 2: $('#current-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); console.log(`https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);break;
-                    case 3: $('#card3-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`); break;
+                    case 1:
+                        $('#card1-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);
+                        break;
+                    case 2:
+                        $('#current-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);
+                        // $('#featured-genre').text(getGenreName(result.results[0].genre_ids[0]));
+                        $('#featured-genre').text(movieDB[currentMovieIndexNum].genre);
+                        break;
+                    case 3:
+                        $('#card3-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);                         $('#card1-genre').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);
+                        break;
                 }
-                console.log(result.results[0].poster_path);
             })
             .catch(() => (console.log("Something went wrong loading the poster")));
     }
 
+    function getGenreList() {
+        const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_KEY}`;
+        const options = {
+            method: 'GET',
+        };
+        fetch(url, options)
+            .then((result) => result.json())
+            .then((result) => {
+                genreList = result.genres;
+                updateGenres();
+            })
+            .catch(() => (console.log("Something went wrong loading the poster")));
+    }
+
+    function updateGenres() {
+        movieDB.forEach((element, index) => {
+            getGenre(element.title, index);
+        });
+        populateCards();
+    }
+
+    function getGenre(title, index) {
+        title = encodeURIComponent(title);
+        let url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query='${title}'&language=en-US&page=1&include_adult=false`;
+        const options = {
+            method: 'GET',
+        };
+        fetch(url, options)
+            .then((result) => result.json())
+            .then((result) => {
+                movieDB[index].genre = getGenreName(result.results[0].genre_ids[0]);
+            })
+            .catch(() => (console.log("Something went wrong getting a genre")));
+    }
+
+    function getGenreName(genreId) {
+        let name = "unknown";
+        for (let i = 0; i < genreList.length; i++) {
+            if (genreList[i].id === genreId) {
+                name = genreList[i].name;
+            }
+        }
+        return name;
+    }
+
     function fwdOne() {
             currentMovieIndexNum++;
+            if (currentMovieIndexNum === movieDB.length) {
+                currentMovieIndexNum = 0;
+            }
             populateCards();
     }
 
     function backOne() {
         currentMovieIndexNum--;
+        if (currentMovieIndexNum < 0) {
+            currentMovieIndexNum = movieDB.length - 1;
+        }
         populateCards()
     }
 
@@ -221,8 +278,6 @@ let currentMovieIndexNum = 0;
     //getPoster();
     getEntireDB();
 
-    //let newMovie = {title: 'Baby Driver', genre: 'Crime', rating: 'R', director: 'Who knows'};
-    //addMovie(newMovie);
     //let idNum = 289;
     //deleteMovie(idNum);
     // let editId = 287;
