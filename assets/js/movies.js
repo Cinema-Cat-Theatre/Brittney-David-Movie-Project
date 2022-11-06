@@ -4,27 +4,12 @@
 //  https://northern-magenta-cashew.glitch.me/movies
 
     /* TODO
-    styling:
-    opacity ot panels
-    middle panel less transparrent
-    make panel 1 and 3 disappear in less than medium size
-    three buttons side-by-side instead of stacked
-    revisit bg image
-    load page
-
-    html
-    make sure form names ids etc are correct / linked
-
     js - jquery
     load page
         Display a "loading..." message
         Make an AJAX request to get a listing of all the movies
         When the initial AJAX request comes back, remove the "loading..." message and replace it with HTML generated from the json response your code receives
         ---> an html element who's display attribute changes from block to none upon api success.  Then show all movies as cards in a carousel? https://getbootstrap.com/docs/5.2/components/carousel/ having global var that = currently displayed movie and have buttons under carousel that do what is requested below
-
-        Bonuses
-        Add a disabled attribute to buttons while their corresponding ajax request is still pending.
-        no problem
 
     Show a loading animation instead of just text that says "loading...".
 
@@ -95,17 +80,17 @@
 
     function populateCards() {  // display everything on the cards
         //card 1
-        $('#card1-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title)}`);
-        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title)}`, 1);
+        $('#card1-title').text(`${movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title}`);
+        getPoster(`${movieDB[checkMovieIndex(currentMovieIndexNum - 1)].title}`, 1);
         //card 2
-        $('#featured-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`);
-        $('#featured-director').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].director)}`);
-        $('#featured-rating').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].rating)}`);
+        $('#featured-title').text(`${movieDB[checkMovieIndex(currentMovieIndexNum)].title}`);
+        $('#featured-director').text(`Directed by ${movieDB[checkMovieIndex(currentMovieIndexNum)].director}`);
+        $('#featured-rating').text(`Rating: ${movieDB[checkMovieIndex(currentMovieIndexNum)].rating} stars`);
         $('#movie-count').text(`${currentMovieIndexNum + 1} of ${movieDB.length}`);
-        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum)].title)}`, 2);
+        getPoster(`${movieDB[checkMovieIndex(currentMovieIndexNum)].title}`, 2);
         //card 3
-        $('#card3-title').text(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title)}`);
-        getPoster(`${JSON.stringify(movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title)}`, 3);
+        $('#card3-title').text(`${movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title}`);
+        getPoster(`${movieDB[checkMovieIndex(currentMovieIndexNum + 1)].title}`, 3);
         populateEditForm();
     }
 
@@ -136,7 +121,7 @@
                     case 2:
                         $('#current-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);
                         // $('#featured-genre').text(getGenreName(result.results[0].genre_ids[0]));
-                        $('#featured-genre').text(movieDB[currentMovieIndexNum].genre);
+                        $('#featured-genre').text('Genre: ' + movieDB[currentMovieIndexNum].genre);
                         break;
                     case 3:
                         $('#card3-movie-poster').attr("src", `https://image.tmdb.org/t/p/original${result.results[0].poster_path}`);
@@ -286,5 +271,8 @@
     $('#submit-delete').on('click', prepDelete);
     $('#left-button').on('click', backOne);
     $('#right-button').on('click', fwdOne);
+    $('#title-sort').on('click', prepEdit);
+    $('#genre-sort').on('click', prepAdd);
+    $('#rating-sort').on('click', prepDelete);
 
 }());

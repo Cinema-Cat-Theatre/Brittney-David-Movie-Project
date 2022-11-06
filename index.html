@@ -43,7 +43,7 @@
             </div>
             <!-- left card -->
             <div class="col-2 mt-5 d-none d-lg-inline-block">
-                <div id="card1-movie" class="card m-0 p-5 side-card">
+                <div id="card1-movie" class="card m-0 p-3 pt-5 pb-5 side-card d-flex justify-content-center align-items-center">
                     <img id="card1-movie-poster" class="card-img" src="./assets/img/Badlands.png.webp"
                          alt="movie poster">
                     <div class="card-title mt-3 mb-2">
@@ -71,28 +71,25 @@
                             <div id="featured-rating" class="fs-6"></div>
                         </div>
                         <div class="container pt-1 d-flex align-items-center justify-content-between">
-<!--                            <div class="row d-flex justify-content-center">-->
-                            <button type="button" class="btn action-button" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
                                     data-bs-target="#edit-movie-modal">
                                 Edit Movie
                             </button>
-                            <button type="button" class="btn action-button" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
                                     data-bs-target="#add-movie-modal">
                                 Add A Movie
                             </button>
-                            <button type="button" class="btn action-button" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
                                     data-bs-target="#delete-movie-modal">
                                 Delete Movie
                             </button>
-<!--                            </div>-->
-
                         </div>
                     </div>
                 </div>
             </div>
             <!-- right card -->
             <div class="col-2 mt-5 d-none d-lg-inline-block">
-                <div id="card3-movie" class="card m-0 p-5 side-card">
+                <div id="card3-movie" class="card m-0 p-3 pt-5 pb-5 side-card d-flex justify-content-center align-items-center">
                     <img id="card3-movie-poster" class="card-img" src="./assets/img/Yosemite.webp"
                          alt="movie poster">
                     <div class="card-title mt-3 mb-2">
@@ -106,8 +103,27 @@
                         class="mt-5 ml-auto mr-auto btn btn-secondary caro-button">></button>
             </div>
         </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col"></div>
+        <div class="col-5 container m-2 pt-1 d-flex align-items-center justify-content-around">
+            <button id="title-sort" type="button" class="btn sort-button">
+                Sort by Title
+            </button>
+            <button id="genre-sort" type="button" class="btn sort-button">
+                Sort by Genre
+            </button>
+            <button id="rating-sort" type="button" class="btn sort-button">
+                Sort by Rating
+            </button>
+        </div>
+            <div class="col"></div>
+</div>
+
+
+
     </div>
-    <div class="row">
+<!--    <div class="row">-->
         <!-- edit movie modal -->
         <div class="modal" id="edit-movie-modal" tabindex="-1">
             <div class="modal-dialog">
@@ -196,7 +212,7 @@
                 </div>
             </div>
         </div>
-    </div>
+<!--    </div>-->
 </main>
 <footer></footer>
 <!-- jquerry js -->
