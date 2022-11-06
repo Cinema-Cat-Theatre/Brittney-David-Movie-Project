@@ -85,7 +85,7 @@
         //card 2
         $('#featured-title').text(`${movieDB[checkMovieIndex(currentMovieIndexNum)].title}`);
         $('#featured-director').text(`Directed by ${movieDB[checkMovieIndex(currentMovieIndexNum)].director}`);
-        $('#featured-rating').text(`Rating: ${movieDB[checkMovieIndex(currentMovieIndexNum)].rating} stars`);
+        $('#featured-rating').text(`${'*'.repeat(movieDB[checkMovieIndex(currentMovieIndexNum)].rating)}`);
         $('#movie-count').text(`${currentMovieIndexNum + 1} of ${movieDB.length}`);
         getPoster(`${movieDB[checkMovieIndex(currentMovieIndexNum)].title}`, 2);
         //card 3
@@ -212,7 +212,7 @@
             .then(() => {
                 movieDB.splice(currentMovieIndexNum, 1);  // update local db
                 console.log(movieDB);
-                fwdOne();  // update screen
+                backOne();  // update screen
             })
             .catch(() => {
                 console.log("There was an error deleting the movie");
@@ -235,8 +235,8 @@
         populateCards();  // update screen
     }
 
-    function sortByRating(objArray) {
-             objArray.sort(function(a, b) {
+    function sortByRating() {
+        movieDB.sort(function(a, b) {
                 let textA = a.rating;
                 let textB = b.rating;
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -244,8 +244,8 @@
              populateCards();
     }
 
-    function sortByTitle(objArray) {
-            objArray.sort(function(a, b) {
+    function sortByTitle() {
+        movieDB.sort(function(a, b) {
                 var textA = a.title.toUpperCase();
                 var textB = b.title.toUpperCase();
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -253,8 +253,8 @@
         populateCards();
     }
 
-    function sortByGenre(objArray) {
-           objArray.sort(function(a, b) {
+    function sortByGenre() {
+           movieDB.sort(function(a, b) {
                 var textA = a.genre.toUpperCase();
                 var textB = b.genre.toUpperCase();
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -271,8 +271,8 @@
     $('#submit-delete').on('click', prepDelete);
     $('#left-button').on('click', backOne);
     $('#right-button').on('click', fwdOne);
-    $('#title-sort').on('click', prepEdit);
-    $('#genre-sort').on('click', prepAdd);
-    $('#rating-sort').on('click', prepDelete);
+    $('#title-sort').on('click', sortByTitle);
+    $('#genre-sort').on('click', sortByGenre);
+    $('#rating-sort').on('click', sortByRating);
 
 }());
