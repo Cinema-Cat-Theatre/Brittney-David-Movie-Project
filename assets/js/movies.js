@@ -1,22 +1,6 @@
 "use strict";
 
 (function () {
-//  https://northern-magenta-cashew.glitch.me/movies
-
-    /* TODO
-    js - jquery
-    load page
-        Display a "loading..." message
-        Make an AJAX request to get a listing of all the movies
-        When the initial AJAX request comes back, remove the "loading..." message and replace it with HTML generated from the json response your code receives
-        ---> an html element who's display attribute changes from block to none upon api success.  Then show all movies as cards in a carousel? https://getbootstrap.com/docs/5.2/components/carousel/ having global var that = currently displayed movie and have buttons under carousel that do what is requested below
-
-    Show a loading animation instead of just text that says "loading...".
-
-    Done but need buttons for this:  Allow users to sort the movies by rating, title, or genre (if you have it).  kinda like coffee project?
-
-
-      */
     let movieDB;  // the general array that holds all the loaded movies
     let currentMovieIndexNum = 0;  // the index number of the current featured movie
     let genreList;  // an array that holds the genre codes for translation of api result
@@ -41,6 +25,12 @@
             .then((result) => result.json())
             .then((result) => {
                 genreList = result.genres;
+                //hide the loading image
+                $('body')
+                    .toggleClass('loading')
+                    .toggleClass('loaded');
+                $('#load-message')
+                    .toggleClass('off-when-loaded');
                 updateGenres();  //  update the genres in the local db
             })
             .catch(() => (console.log("Something went wrong loading the poster")));
@@ -50,7 +40,6 @@
         movieDB.forEach((element, index) => {
             getGenre(element.title, index);
         });
-        // hide the loading image
         populateCards();  // update the screen
     }
 
@@ -236,34 +225,40 @@
     }
 
     function sortByRating() {
-        movieDB.sort(function(a, b) {
-                let textA = a.rating;
-                let textB = b.rating;
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
-             populateCards();
+        movieDB.sort(function (a, b) {
+            let textA = a.rating;
+            let textB = b.rating;
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        populateCards();
     }
 
     function sortByTitle() {
-        movieDB.sort(function(a, b) {
-                var textA = a.title.toUpperCase();
-                var textB = b.title.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
+        movieDB.sort(function (a, b) {
+            var textA = a.title.toUpperCase();
+            var textB = b.title.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
         populateCards();
     }
 
     function sortByGenre() {
-           movieDB.sort(function(a, b) {
-                var textA = a.genre.toUpperCase();
-                var textB = b.genre.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
+        movieDB.sort(function (a, b) {
+            var textA = a.genre.toUpperCase();
+            var textB = b.genre.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
         populateCards();
     }
 
-     //  light the fuse by getting the db from glitch
-    getEntireDB();
+    //  light the fuse by getting the db from glitch
+    //  timer only used to demo loading screen effect
+    //  uncomment line below and comment the timer to remove timer
+    //  getEntireDB();
+    setTimeout(() => {
+        console.log("waiting");
+        getEntireDB()
+    }, 5000);
 
     // wire up the buttons
     $('#submit-edit').on('click', prepEdit);

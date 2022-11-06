@@ -20,14 +20,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
 </head>
-<body class="loaded">
+<body class="loading">
 <header>
     <div class="container">
-        <!--    <div class="h1 d-flex justify-content-center">The Cat Cinema</div>-->
         <div class="row">
             <div class="text-center">THE CAT CINEMA</div>
+            <div id="load-message" class="text-center fs-4">Loading your movie database...</div>
         </div>
-        <!--    <div class="text d-flex justify-content-start">The Cat Cinema</div>-->
     </div>
 </header>
 <main>
@@ -120,7 +119,6 @@
             <div class="col"></div>
         </div>
     </div>
-    <!--    <div class="row">-->
     <!-- edit movie modal -->
     <div class="modal" id="edit-movie-modal" tabindex="-1">
         <div class="modal-dialog">
@@ -209,9 +207,8 @@
             </div>
         </div>
     </div>
-    <!--    </div>-->
 </main>
-<footer></footer>
+<footer class="m-1"></footer>
 <!-- jquerry js -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
