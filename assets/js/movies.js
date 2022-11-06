@@ -30,7 +30,6 @@
 
     Done but need buttons for this:  Allow users to sort the movies by rating, title, or genre (if you have it).  kinda like coffee project?
 
-    Allow users to search through the movies by rating, title, or genre (if you have it). kinda like coffee project?
 
       */
     let movieDB;  // the general array that holds all the loaded movies
